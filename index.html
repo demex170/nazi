@@ -1,0 +1,1891 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+      initial-scale=1.0,
+      maximum-scale=1.0,
+      user-scalable=no,
+      viewport-fit=cover">
+
+<meta name="theme-color" content="#080509">
+
+<title>ერთი პატარა პაემანი ♡</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet">
+
+<style>
+:root{
+    --bg:#080509;
+    --bg2:#110811;
+    --pink:#f08aaa;
+    --pink2:#ffb4cc;
+    --red:#ff4e72;
+    --gold:#d9b66c;
+    --white:#fff8fb;
+    --muted:#bcaab3;
+    --line:rgba(255,255,255,.12);
+    --glass:rgba(255,255,255,.055);
+    --shadow:0 25px 80px rgba(0,0,0,.55);
+}
+
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html{
+    scroll-behavior:smooth;
+    background:var(--bg);
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 50% -10%, rgba(240,138,170,.16), transparent 35%),
+        radial-gradient(circle at 0% 80%, rgba(255,78,114,.07), transparent 35%),
+        var(--bg);
+    color:var(--white);
+    font-family:"Noto Sans Georgian",sans-serif;
+    overflow-x:hidden;
+}
+
+button,
+textarea{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.app{
+    width:100%;
+    min-height:100vh;
+    position:relative;
+}
+
+.bg-orb{
+    position:fixed;
+    width:260px;
+    height:260px;
+    border-radius:50%;
+    pointer-events:none;
+    opacity:.14;
+    filter:blur(70px);
+    z-index:0;
+}
+
+.orb1{
+    background:#ff5f91;
+    top:-100px;
+    left:-100px;
+}
+
+.orb2{
+    background:#8c315a;
+    right:-130px;
+    bottom:-100px;
+}
+
+.progress{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:3px;
+    z-index:100;
+    background:rgba(255,255,255,.04);
+}
+
+.progress-bar{
+    width:0%;
+    height:100%;
+    background:linear-gradient(90deg,var(--pink),var(--red),var(--gold));
+    transition:width .6s ease;
+}
+
+.screen{
+    position:relative;
+    z-index:2;
+    width:100%;
+    min-height:100svh;
+    padding:
+        max(28px, env(safe-area-inset-top))
+        20px
+        max(30px, env(safe-area-inset-bottom));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.hidden{
+    display:none !important;
+}
+
+.container{
+    width:min(100%,760px);
+    margin:auto;
+}
+
+.center{
+    text-align:center;
+}
+
+.eyebrow{
+    color:var(--gold);
+    text-transform:uppercase;
+    letter-spacing:.16em;
+    font-size:11px;
+    font-weight:700;
+    margin-bottom:18px;
+}
+
+h1,h2,h3,p{
+    margin-top:0;
+}
+
+h1{
+    font-size:clamp(34px,9vw,72px);
+    line-height:1.08;
+    margin-bottom:20px;
+    letter-spacing:-.035em;
+}
+
+h2{
+    font-size:clamp(27px,7vw,46px);
+    line-height:1.15;
+    margin-bottom:14px;
+    letter-spacing:-.025em;
+}
+
+h3{
+    font-size:20px;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    color:var(--muted);
+    line-height:1.85;
+    font-size:15px;
+    max-width:600px;
+    margin:0 auto;
+}
+
+.accent{
+    color:var(--pink2);
+}
+
+.gold{
+    color:var(--gold);
+}
+
+.primary-btn,
+.secondary-btn{
+    border:0;
+    border-radius:999px;
+    min-height:54px;
+    padding:0 27px;
+    font-size:14px;
+    font-weight:700;
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
+}
+
+.primary-btn{
+    color:#190b11;
+    background:linear-gradient(135deg,#ffc1d6,var(--pink));
+    box-shadow:0 15px 40px rgba(240,138,170,.22);
+}
+
+.primary-btn:hover{
+    transform:translateY(-2px);
+}
+
+.primary-btn:active,
+.secondary-btn:active{
+    transform:scale(.97);
+}
+
+.secondary-btn{
+    color:var(--white);
+    background:rgba(255,255,255,.055);
+    border:1px solid var(--line);
+}
+
+.hero-card{
+    padding:38px 25px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.035);
+    box-shadow:var(--shadow);
+    border-radius:32px;
+}
+
+.small-note{
+    color:#897982;
+    font-size:11px;
+    margin-top:17px;
+}
+
+.action-row{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:28px;
+}
+
+/* QUESTIONS */
+
+.question-card{
+    padding:30px 22px;
+    border:1px solid var(--line);
+    background:var(--glass);
+    border-radius:28px;
+    box-shadow:var(--shadow);
+}
+
+.question-number{
+    color:var(--gold);
+    font-size:11px;
+    letter-spacing:.12em;
+    font-weight:700;
+    margin-bottom:12px;
+}
+
+.question-title{
+    font-size:24px;
+    line-height:1.4;
+    margin-bottom:23px;
+}
+
+.answers{
+    display:grid;
+    gap:10px;
+}
+
+.answer-btn{
+    width:100%;
+    padding:17px 16px;
+    border-radius:18px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.035);
+    color:var(--white);
+    font-size:14px;
+    text-align:left;
+    transition:.25s ease;
+}
+
+.answer-btn:hover{
+    border-color:rgba(240,138,170,.5);
+    background:rgba(240,138,170,.08);
+}
+
+.answer-btn.selected{
+    border-color:var(--pink);
+    background:rgba(240,138,170,.13);
+    box-shadow:inset 0 0 0 1px rgba(240,138,170,.15);
+}
+
+.next-area{
+    margin-top:18px;
+    display:flex;
+    justify-content:flex-end;
+}
+
+/* PHOTOS */
+
+.photo-wrap{
+    width:100%;
+}
+
+.photo-counter{
+    color:var(--gold);
+    font-size:11px;
+    letter-spacing:.13em;
+    font-weight:700;
+    margin-bottom:13px;
+}
+
+.photo-card{
+    position:relative;
+    width:100%;
+    height:min(72svh,650px);
+    min-height:420px;
+    border-radius:30px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    background:#100b0f;
+    box-shadow:var(--shadow);
+}
+
+.photo-card img{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
+}
+
+.photo-overlay{
+    position:absolute;
+    inset:auto 0 0;
+    padding:80px 22px 24px;
+    background:linear-gradient(transparent,rgba(0,0,0,.8));
+}
+
+.photo-caption{
+    font-size:14px;
+    line-height:1.6;
+    color:#fff;
+}
+
+.photo-controls{
+    display:flex;
+    gap:10px;
+    justify-content:space-between;
+    margin-top:15px;
+}
+
+.photo-controls button{
+    flex:1;
+}
+
+/* LETTER */
+
+.letter{
+    padding:34px 25px;
+    border:1px solid rgba(217,182,108,.22);
+    background:
+        linear-gradient(145deg,rgba(217,182,108,.07),rgba(255,255,255,.025));
+    border-radius:30px;
+    box-shadow:var(--shadow);
+}
+
+.letter-line{
+    width:45px;
+    height:1px;
+    background:var(--gold);
+    margin:0 auto 25px;
+}
+
+.letter p{
+    color:#e8dce1;
+    font-size:15px;
+    line-height:2;
+}
+
+.signature{
+    color:var(--pink2);
+    margin-top:25px;
+    font-weight:700;
+}
+
+/* CHOICES */
+
+.choice-group{
+    margin-top:25px;
+}
+
+.choice-label{
+    color:var(--gold);
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.08em;
+    margin-bottom:12px;
+}
+
+.choice-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.choice{
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.035);
+    color:var(--white);
+    border-radius:20px;
+    padding:19px 13px;
+    text-align:center;
+    transition:.25s ease;
+}
+
+.choice strong{
+    display:block;
+    font-size:14px;
+    margin-bottom:4px;
+}
+
+.choice span{
+    color:var(--muted);
+    font-size:11px;
+}
+
+.choice.selected{
+    border-color:var(--pink);
+    background:rgba(240,138,170,.13);
+    box-shadow:0 10px 35px rgba(240,138,170,.09);
+}
+
+/* TEXTAREA */
+
+.message-box{
+    width:100%;
+    min-height:190px;
+    resize:vertical;
+    border-radius:24px;
+    border:1px solid var(--line);
+    outline:none;
+    padding:20px;
+    color:var(--white);
+    background:rgba(255,255,255,.045);
+    font-size:14px;
+    line-height:1.8;
+}
+
+.message-box:focus{
+    border-color:rgba(240,138,170,.6);
+}
+
+/* SUMMARY */
+
+.summary{
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.035);
+    border-radius:28px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+}
+
+.summary-item{
+    padding:18px 20px;
+    border-bottom:1px solid var(--line);
+}
+
+.summary-item:last-child{
+    border-bottom:0;
+}
+
+.summary-label{
+    color:var(--gold);
+    font-size:10px;
+    letter-spacing:.1em;
+    font-weight:700;
+    margin-bottom:6px;
+}
+
+.summary-value{
+    color:#f8eef2;
+    font-size:14px;
+    line-height:1.7;
+    white-space:pre-wrap;
+    word-break:break-word;
+}
+
+.submit-btn{
+    width:100%;
+    margin-top:16px;
+    min-height:58px;
+    font-size:15px;
+}
+
+/* SUCCESS */
+
+.success-mark{
+    width:74px;
+    height:74px;
+    border-radius:50%;
+    margin:0 auto 24px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid rgba(240,138,170,.45);
+    background:rgba(240,138,170,.1);
+    color:var(--pink2);
+    font-size:30px;
+}
+
+.loading{
+    display:none;
+    margin-top:15px;
+    color:var(--muted);
+    font-size:12px;
+}
+
+.loading.show{
+    display:block;
+}
+
+.error{
+    display:none;
+    margin-top:15px;
+    color:#ff8da7;
+    font-size:12px;
+    line-height:1.6;
+}
+
+.error.show{
+    display:block;
+}
+
+/* FLOATING */
+
+.floating{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:1;
+    overflow:hidden;
+}
+
+.heart{
+    position:absolute;
+    bottom:-30px;
+    color:rgba(255,150,180,.35);
+    font-size:14px;
+    animation:floatUp linear forwards;
+}
+
+@keyframes floatUp{
+    from{
+        transform:translateY(0) rotate(0deg);
+        opacity:0;
+    }
+    15%{opacity:1}
+    to{
+        transform:translateY(-110vh) rotate(30deg);
+        opacity:0;
+    }
+}
+
+/* DESKTOP */
+
+@media(min-width:700px){
+    .screen{
+        padding-left:30px;
+        padding-right:30px;
+    }
+
+    .hero-card,
+    .question-card,
+    .letter{
+        padding:45px;
+    }
+
+    .choice-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .photo-card{
+        height:680px;
+    }
+}
+
+/* SMALL PHONES */
+
+@media(max-width:390px){
+    .screen{
+        padding-left:14px;
+        padding-right:14px;
+    }
+
+    h1{
+        font-size:34px;
+    }
+
+    h2{
+        font-size:26px;
+    }
+
+    .question-title{
+        font-size:21px;
+    }
+
+    .hero-card,
+    .question-card,
+    .letter{
+        padding:25px 18px;
+        border-radius:25px;
+    }
+
+    .photo-card{
+        min-height:390px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <div class="bg-orb orb1"></div>
+    <div class="bg-orb orb2"></div>
+
+    <div class="floating" id="floating"></div>
+
+    <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- START -->
+    <section class="screen" id="screen-start">
+        <div class="container center">
+            <div class="hero-card">
+
+                <div class="eyebrow">ერთი პატარა წერილი</div>
+
+                <h1>
+                    სანამ ისევ<br>
+                    <span class="accent">გამიბრაზდები…</span>
+                </h1>
+
+                <p class="subtitle">
+                    ვიცი, რომ შეიძლება ახლა ჩემზე გაბრაზებული ხარ.
+                    ამიტომ ეს უბრალოდ ერთი პატარა გვერდია,
+                    რომელიც შენთვის გავაკეთე.
+                </p>
+
+                <div class="action-row">
+                    <button class="primary-btn" id="startBtn">
+                        დავიწყოთ ♡
+                    </button>
+                </div>
+
+                <div class="small-note">
+                    ყველაფერი შენს არჩევანზეა.
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- QUESTIONS -->
+    <section class="screen hidden" id="screen-question">
+        <div class="container">
+
+            <div class="question-card">
+
+                <div class="question-number" id="questionNumber">
+                    კითხვა 1 / 4
+                </div>
+
+                <div class="question-title" id="questionTitle"></div>
+
+                <div class="answers" id="answers"></div>
+
+                <div class="next-area">
+                    <button class="primary-btn hidden" id="nextQuestionBtn">
+                        შემდეგი
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- PHOTOS -->
+    <section class="screen hidden" id="screen-photo">
+        <div class="container">
+
+            <div class="photo-wrap center">
+
+                <div class="eyebrow">ჩვენი პატარა მოგონებები</div>
+
+                <div class="photo-counter" id="photoCounter">
+                    01 / 06
+                </div>
+
+                <div class="photo-card">
+                    <img id="memoryImage"
+                         src="photo1.jpg"
+                         alt="ჩვენი მოგონება">
+
+                    <div class="photo-overlay">
+                        <div class="photo-caption" id="photoCaption">
+                            ზოგი მოგონება უბრალოდ ფოტოზე მეტი რამეა.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-controls">
+                    <button class="secondary-btn" id="prevPhoto">
+                        ← უკან
+                    </button>
+
+                    <button class="primary-btn" id="nextPhoto">
+                        შემდეგი →
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- APOLOGY LETTER -->
+    <section class="screen hidden" id="screen-letter">
+        <div class="container">
+
+            <div class="letter center">
+
+                <div class="eyebrow">ჩემი სიტყვები შენთვის</div>
+
+                <div class="letter-line"></div>
+
+                <h2>
+                    ჯერ უბრალოდ<br>
+                    <span class="accent">მომისმინე.</span>
+                </h2>
+
+                <p>
+                    ვიცი, რომ შეიძლება ჩემი საქციელით გატკინე,
+                    გაგაბრაზე ან უბრალოდ იმედი გაგიცრუე.
+                    არ მინდა თავი ვიმართლო და არც იმას ვითხოვ,
+                    რომ ერთ წამში დაგავიწყდეს ყველაფერი.
+                </p>
+
+                <p>
+                    უბრალოდ მინდა იცოდე, რომ შენი გრძნობები ჩემთვის
+                    მნიშვნელოვანია. თუ გაწყენინე — მართლა ვწუხვარ.
+                    შენთან კამათში გამარჯვება არასდროს არის ჩემთვის
+                    მნიშვნელოვანი.
+                </p>
+
+                <p>
+                    ამიტომ მინდა ერთი პატარა საღამო დაგითმო.
+                    არა იმისთვის, რომ ყველაფერი ძალით გამოვასწოროთ,
+                    არამედ იმისთვის, რომ ერთად მშვიდად ვიყოთ.
+                </p>
+
+                <div class="signature">
+                    შენი ადამიანი ♡
+                </div>
+
+                <div class="action-row">
+                    <button class="primary-btn" id="toDinnerBtn">
+                        ვახშამზე დაგპატიჟებ 🍽️
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- DINNER -->
+    <section class="screen hidden" id="screen-dinner">
+        <div class="container">
+
+            <div class="center">
+                <div class="eyebrow">შენი არჩევანია</div>
+
+                <h2>
+                    მოდი, შენ გადაწყვიტე<br>
+                    <span class="accent">რას შევჭამთ.</span>
+                </h2>
+
+                <p class="subtitle">
+                    მე უბრალოდ ვმასპინძლობ.
+                    დღეს არჩევანი მთლიანად შენია.
+                </p>
+            </div>
+
+
+            <div class="choice-group">
+
+                <div class="choice-label">
+                    🍽️ საჭმელი
+                </div>
+
+                <div class="choice-grid" id="foodChoices">
+
+                    <button class="choice"
+                            data-type="food"
+                            data-value="სტეიკი">
+                        <strong>სტეიკი</strong>
+                        <span>კარგი საღამოსთვის</span>
+                    </button>
+
+                    <button class="choice"
+                            data-type="food"
+                            data-value="პასტა">
+                        <strong>პასტა</strong>
+                        <span>კლასიკური არჩევანი</span>
+                    </button>
+
+                    <button class="choice"
+                            data-type="food"
+                            data-value="პიცა">
+                        <strong>პიცა</strong>
+                        <span>უბრალოდ გემრიელი</span>
+                    </button>
+
+                    <button class="choice"
+                            data-type="food"
+                            data-value="ბურგერი">
+                        <strong>ბურგერი</strong>
+                        <span>კარგი იდეაა</span>
+                    </button>
+
+                    <button class="choice"
+                            data-type="food"
+                            data-value="სალათი">
+                        <strong>სალათი</strong>
+                        <span>მსუბუქი ვარიანტი</span>
+                    </button>
+
+                    <button class="choice"
+                            data-type="food"
+                            data-value="შენ აირჩიე">
+                        <strong>შენ აირჩიე</strong>
+                        <span>როგორც გინდა</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="choice-group">
+
+                <div class="choice-label">
+                    🥤 სასმელი
+                </div>
+
+                <div class="choice-grid">
+
+                    <button class="choice"
+                            data-type="drink"
+                            data-value="კოკა-კოლა">
+                        <strong>კოკა-კოლა</strong>
+                        <span>ცივი და მარტივი</span>
+                    </button>
+
+                    <button class="choice"
+                            data-type="drink"
+                            data-value="ლიმონათი">
+                        <strong>ლიმონათი</strong>
+                        <span>რაღაც მსუბუქი</span>
+                    </button>
+
+                    <button class="choice"
+                            data-type="drink"
+                            data-value="წვენი">
+                        <strong>წვენი</strong>
+                        <span>ტკბილი არჩევანი</span>
+                    </button>
+
+                    <button class="choice"
+                            data-type="drink"
+                            data-value="წყალი">
+                        <strong>წყალი</strong>
+                        <span>კლასიკა</span>
+                    </button>
+
+                    <button class="choice"
+                            data-type="drink"
+                            data-value="ყავა">
+                        <strong>ყავა</strong>
+                        <span>საღამოსთვის</span>
+                    </button>
+
+                    <button class="choice"
+                            data-type="drink"
+                            data-value="შენ აირჩიე">
+                        <strong>შენ აირჩიე</strong>
+                        <span>როგორც გინდა</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="choice-group">
+
+                <div class="choice-label">
+                    🍰 დესერტი
+                </div>
+
+                <div class="choice-grid">
+
+                    <button class="choice"
+                            data-type="dessert"
+                            data-value="ჩიზქეიქი">
+                        <strong>ჩიზქეიქი</strong>
+                        <span>ტკბილი დასასრული</span>
+                    </button>
+
+                    <button class="choice"
+                            data-type="dessert"
+                            data-value="ტირამისუ">
+                        <strong>ტირამისუ</strong>
+                        <span>იტალიური განწყობა</span>
+                    </button>
+
+                    <button class="choice"
+                            data-type="dessert"
+                            data-value="ნაყინი">
+                        <strong>ნაყინი</strong>
+                        <span>ცივი არჩევანი</span>
+                    </button>
+
+                    <button class="choice"
+                            data-type="dessert"
+                            data-value="შოკოლადის დესერტი">
+                        <strong>შოკოლადი</strong>
+                        <span>ამის ახსნა არ უნდა</span>
+                    </button>
+
+                    <button class="choice"
+                            data-type="dessert"
+                            data-value="ხილი">
+                        <strong>ხილი</strong>
+                        <span>მსუბუქი დასასრული</span>
+                    </button>
+
+                    <button class="choice"
+                            data-type="dessert"
+                            data-value="შენ აირჩიე">
+                        <strong>შენ აირჩიე</strong>
+                        <span>შენი წესებია</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="action-row">
+                <button class="primary-btn" id="toMessageBtn">
+                    შემდეგი ♡
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- HER MESSAGE -->
+    <section class="screen hidden" id="screen-message">
+        <div class="container">
+
+            <div class="question-card">
+
+                <div class="center">
+                    <div class="eyebrow">ახლა შენი ჯერია</div>
+
+                    <h2>
+                        პატარა წერილი<br>
+                        <span class="accent">დამიტოვე.</span>
+                    </h2>
+
+                    <p class="subtitle">
+                        რაც გინდა დაწერე.
+                        გაბრაზებული ხარ? დაწერე.
+                        გაგეცინა? ეგეც დაწერე.
+                        უბრალოდ მითხარი, რასაც ფიქრობ.
+                    </p>
+                </div>
+
+                <textarea
+                    id="herMessage"
+                    class="message-box"
+                    maxlength="3000"
+                    placeholder="დამიწერე აქ რამე..."></textarea>
+
+                <div class="action-row">
+                    <button class="primary-btn" id="toSummaryBtn">
+                        ჩემი პასუხების ნახვა
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- SUMMARY -->
+    <section class="screen hidden" id="screen-summary">
+        <div class="container">
+
+            <div class="center">
+                <div class="eyebrow">ბოლო ნაბიჯი</div>
+
+                <h2>
+                    ასე გამოიყურება<br>
+                    <span class="accent">შენი არჩევანი.</span>
+                </h2>
+
+                <p class="subtitle">
+                    გადაამოწმე ყველაფერი და როცა მზად იქნები,
+                    ერთ წერილად გამომიგზავნე.
+                </p>
+            </div>
+
+            <div class="summary">
+
+                <div class="summary-item">
+                    <div class="summary-label">
+                        კითხვებზე პასუხები
+                    </div>
+
+                    <div class="summary-value"
+                         id="summaryQuestions"></div>
+                </div>
+
+                <div class="summary-item">
+                    <div class="summary-label">
+                        საჭმელი
+                    </div>
+
+                    <div class="summary-value"
+                         id="summaryFood">
+                        —
+                    </div>
+                </div>
+
+                <div class="summary-item">
+                    <div class="summary-label">
+                        სასმელი
+                    </div>
+
+                    <div class="summary-value"
+                         id="summaryDrink">
+                        —
+                    </div>
+                </div>
+
+                <div class="summary-item">
+                    <div class="summary-label">
+                        დესერტი
+                    </div>
+
+                    <div class="summary-value"
+                         id="summaryDessert">
+                        —
+                    </div>
+                </div>
+
+                <div class="summary-item">
+                    <div class="summary-label">
+                        შენი წერილი
+                    </div>
+
+                    <div class="summary-value"
+                         id="summaryMessage">
+                        —
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="primary-btn submit-btn"
+                    id="submitBtn">
+                ყველაფერი გავაგზავნოთ ♡
+            </button>
+
+            <div class="loading" id="loading">
+                შენი პასუხები იგზავნება...
+            </div>
+
+            <div class="error" id="submitError">
+                გაგზავნისას პრობლემა მოხდა. შეამოწმე ინტერნეტი და
+                კიდევ ერთხელ სცადე.
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- SUCCESS -->
+    <section class="screen hidden" id="screen-success">
+        <div class="container center">
+
+            <div class="hero-card">
+
+                <div class="success-mark">
+                    ✓
+                </div>
+
+                <div class="eyebrow">
+                    გაიგზავნა
+                </div>
+
+                <h2>
+                    მივიღე. ♡
+                </h2>
+
+                <p class="subtitle">
+                    შენი პასუხები და წერილი ერთად გამომიგზავნე.
+                    ახლა დანარჩენი უკვე ჩემზეა.
+                </p>
+
+            </div>
+
+        </div>
+    </section>
+
+</div>
+
+
+<script>
+"use strict";
+
+/* =========================================================
+   CONFIG
+========================================================= */
+
+const CONFIG = {
+
+    formspreeEndpoint:
+        "https://formspree.io/f/xoevqrey",
+
+    photoFiles: [
+        "photo1.jpg",
+        "photo2.jpg",
+        "photo3.jpg",
+        "photo4.jpg",
+        "photo5.jpg",
+        "photo6.jpg"
+    ]
+
+};
+
+
+/* =========================================================
+   QUESTIONS
+========================================================= */
+
+const QUESTIONS = [
+
+    {
+        title: "ახლა რამდენად გაბრაზებული ხარ ჩემზე?",
+        answers: [
+            "ცოტათი 😌",
+            "საშუალოდ 😤",
+            "ძალიან 😠",
+            "არ გეტყვი 😶"
+        ]
+    },
+
+    {
+        title: "მომცემ შანსს, რომ ეს ყველაფერი გამოვასწორო?",
+        answers: [
+            "კი",
+            "ალბათ",
+            "ჯერ არ ვიცი",
+            "ჯერ კიდევ გაბრაზებული ვარ"
+        ]
+    },
+
+    {
+        title: "ერთი მშვიდი საღამო ერთად?",
+        answers: [
+            "კი, შეიძლება",
+            "მხოლოდ თუ კარგ საჭმელს ვჭამთ",
+            "მოდი ვნახოთ",
+            "ჯერ დამელაპარაკე 😤"
+        ]
+    },
+
+    {
+        title: "ბოლოს ერთი რამე მითხარი — მენდობი?",
+        answers: [
+            "კი ♡",
+            "მინდა რომ ისევ გენდო",
+            "ჯერ უნდა დაიმსახურო",
+            "ამაზე მერე გიპასუხებ"
+        ]
+    }
+
+];
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+const state = {
+
+    currentQuestion: 0,
+
+    answers: [],
+
+    photos: 0,
+
+    food: "",
+
+    drink: "",
+
+    dessert: "",
+
+    message: ""
+
+};
+
+
+/* =========================================================
+   DOM
+========================================================= */
+
+const $ = id => document.getElementById(id);
+
+const screens = {
+
+    start: $("screen-start"),
+
+    question: $("screen-question"),
+
+    photo: $("screen-photo"),
+
+    letter: $("screen-letter"),
+
+    dinner: $("screen-dinner"),
+
+    message: $("screen-message"),
+
+    summary: $("screen-summary"),
+
+    success: $("screen-success")
+
+};
+
+const progressBar = $("progressBar");
+
+
+/* =========================================================
+   PHOTO PRELOAD
+========================================================= */
+
+const preloadedImages = [];
+
+function preloadPhotos(){
+
+    CONFIG.photoFiles.forEach(src => {
+
+        const img = new Image();
+
+        img.src = src;
+
+        preloadedImages.push(img);
+
+    });
+
+}
+
+preloadPhotos();
+
+
+/* =========================================================
+   FLOATING HEARTS
+========================================================= */
+
+function createHeart(){
+
+    const heart = document.createElement("div");
+
+    heart.className = "heart";
+
+    heart.textContent =
+        Math.random() > .5 ? "♡" : "✦";
+
+    heart.style.left =
+        Math.random() * 100 + "%";
+
+    heart.style.fontSize =
+        (10 + Math.random() * 10) + "px";
+
+    heart.style.animationDuration =
+        (7 + Math.random() * 6) + "s";
+
+    $("floating").appendChild(heart);
+
+    setTimeout(() => {
+
+        heart.remove();
+
+    }, 14000);
+
+}
+
+setInterval(createHeart, 1300);
+
+
+/* =========================================================
+   SCREEN NAVIGATION
+========================================================= */
+
+const screenOrder = [
+    "start",
+    "question",
+    "photo",
+    "letter",
+    "dinner",
+    "message",
+    "summary",
+    "success"
+];
+
+function showScreen(name){
+
+    Object.values(screens).forEach(screen => {
+
+        screen.classList.add("hidden");
+
+    });
+
+    screens[name].classList.remove("hidden");
+
+    const index = screenOrder.indexOf(name);
+
+    const progress =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                (index / (screenOrder.length - 2)) * 100
+            )
+        );
+
+    progressBar.style.width = progress + "%";
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+$("startBtn").addEventListener("click", () => {
+
+    state.currentQuestion = 0;
+
+    renderQuestion();
+
+    showScreen("question");
+
+});
+
+
+/* =========================================================
+   QUESTIONS
+========================================================= */
+
+function renderQuestion(){
+
+    const q =
+        QUESTIONS[state.currentQuestion];
+
+    $("questionNumber").textContent =
+        `კითხვა ${state.currentQuestion + 1} / ${QUESTIONS.length}`;
+
+    $("questionTitle").textContent =
+        q.title;
+
+    const answersContainer =
+        $("answers");
+
+    answersContainer.innerHTML = "";
+
+    $("nextQuestionBtn")
+        .classList.add("hidden");
+
+    q.answers.forEach((answer, index) => {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "answer-btn";
+
+        button.textContent = answer;
+
+        if(
+            state.answers[state.currentQuestion] === answer
+        ){
+            button.classList.add("selected");
+
+            $("nextQuestionBtn")
+                .classList.remove("hidden");
+        }
+
+        button.addEventListener("click", () => {
+
+            state.answers[state.currentQuestion] =
+                answer;
+
+            document
+                .querySelectorAll(".answer-btn")
+                .forEach(btn =>
+                    btn.classList.remove("selected")
+                );
+
+            button.classList.add("selected");
+
+            $("nextQuestionBtn")
+                .classList.remove("hidden");
+
+        });
+
+        answersContainer.appendChild(button);
+
+    });
+
+}
+
+
+$("nextQuestionBtn").addEventListener("click", () => {
+
+    if(
+        !state.answers[state.currentQuestion]
+    ){
+        return;
+    }
+
+    state.currentQuestion++;
+
+    if(
+        state.currentQuestion >= QUESTIONS.length
+    ){
+
+        state.photos = 0;
+
+        renderPhoto();
+
+        showScreen("photo");
+
+        return;
+
+    }
+
+    renderQuestion();
+
+});
+
+
+/* =========================================================
+   PHOTOS
+========================================================= */
+
+const photoCaptions = [
+
+    "ზოგი მოგონება უბრალოდ ფოტოზე მეტი რამეა.",
+
+    "ეს მომენტი ისევ მახსოვს.",
+
+    "კარგი დღეები ყოველთვის რჩება.",
+
+    "ზოგჯერ ერთი ფოტო ბევრ რამეს ამბობს.",
+
+    "ჩვენი პატარა სამყაროს კიდევ ერთი ნაწილი.",
+
+    "და კიდევ ბევრი ასეთი მომენტი წინ გვაქვს."
+
+];
+
+
+function renderPhoto(){
+
+    const index = state.photos;
+
+    $("memoryImage").src =
+        CONFIG.photoFiles[index];
+
+    $("photoCounter").textContent =
+        `${String(index + 1).padStart(2,"0")} / 06`;
+
+    $("photoCaption").textContent =
+        photoCaptions[index];
+
+    $("prevPhoto").style.visibility =
+        index === 0 ? "hidden" : "visible";
+
+    $("nextPhoto").textContent =
+        index === CONFIG.photoFiles.length - 1
+            ? "გაგრძელება →"
+            : "შემდეგი →";
+
+}
+
+
+$("nextPhoto").addEventListener("click", () => {
+
+    if(
+        state.photos <
+        CONFIG.photoFiles.length - 1
+    ){
+
+        state.photos++;
+
+        renderPhoto();
+
+    }else{
+
+        showScreen("letter");
+
+    }
+
+});
+
+
+$("prevPhoto").addEventListener("click", () => {
+
+    if(state.photos > 0){
+
+        state.photos--;
+
+        renderPhoto();
+
+    }
+
+});
+
+
+/* =========================================================
+   APOLOGY → DINNER
+========================================================= */
+
+$("toDinnerBtn").addEventListener("click", () => {
+
+    showScreen("dinner");
+
+});
+
+
+/* =========================================================
+   CHOICES
+========================================================= */
+
+document
+    .querySelectorAll(".choice")
+    .forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            const type =
+                button.dataset.type;
+
+            const value =
+                button.dataset.value;
+
+            document
+                .querySelectorAll(
+                    `.choice[data-type="${type}"]`
+                )
+                .forEach(item =>
+                    item.classList.remove("selected")
+                );
+
+            button.classList.add("selected");
+
+            if(type === "food"){
+                state.food = value;
+            }
+
+            if(type === "drink"){
+                state.drink = value;
+            }
+
+            if(type === "dessert"){
+                state.dessert = value;
+            }
+
+        });
+
+    });
+
+
+/* =========================================================
+   DINNER → MESSAGE
+========================================================= */
+
+$("toMessageBtn").addEventListener("click", () => {
+
+    if(!state.food){
+
+        alert("ჯერ საჭმელი აირჩიე ♡");
+
+        return;
+
+    }
+
+    if(!state.drink){
+
+        alert("ჯერ სასმელი აირჩიე ♡");
+
+        return;
+
+    }
+
+    if(!state.dessert){
+
+        alert("ჯერ დესერტი აირჩიე ♡");
+
+        return;
+
+    }
+
+    showScreen("message");
+
+});
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+$("toSummaryBtn").addEventListener("click", () => {
+
+    state.message =
+        $("herMessage").value.trim();
+
+    renderSummary();
+
+    showScreen("summary");
+
+});
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+function renderSummary(){
+
+    let questionsHTML = "";
+
+    QUESTIONS.forEach((question, index) => {
+
+        questionsHTML +=
+            `${index + 1}. ${question.title}\n` +
+            `პასუხი: ${state.answers[index] || "—"}\n\n`;
+
+    });
+
+    $("summaryQuestions").textContent =
+        questionsHTML.trim();
+
+    $("summaryFood").textContent =
+        state.food || "—";
+
+    $("summaryDrink").textContent =
+        state.drink || "—";
+
+    $("summaryDessert").textContent =
+        state.dessert || "—";
+
+    $("summaryMessage").textContent =
+        state.message || "წერილი არ დაუტოვებია.";
+
+}
+
+
+/* =========================================================
+   FORMSPREE
+========================================================= */
+
+async function submitAllData(){
+
+    const submitBtn =
+        $("submitBtn");
+
+    const loading =
+        $("loading");
+
+    const error =
+        $("submitError");
+
+    submitBtn.disabled = true;
+
+    submitBtn.style.opacity = ".6";
+
+    loading.classList.add("show");
+
+    error.classList.remove("show");
+
+
+    /*
+        ყველაფერი იგზავნება ერთ POST request-ში.
+        ამიტომ Formspree-ზე მიიღება მხოლოდ
+        ერთი submission.
+    */
+
+    const formData = new FormData();
+
+    formData.append(
+        "subject",
+        "პატიების საიტის პასუხები"
+    );
+
+    formData.append(
+        "ფორმა",
+        "პატიების / ვახშმის მოწვევა"
+    );
+
+
+    /* კითხვები */
+
+    QUESTIONS.forEach((question, index) => {
+
+        formData.append(
+            `კითხვა ${index + 1}`,
+            question.title
+        );
+
+        formData.append(
+            `პასუხი ${index + 1}`,
+            state.answers[index] || "—"
+        );
+
+    });
+
+
+    /* არჩევანი */
+
+    formData.append(
+        "საჭმელი",
+        state.food || "—"
+    );
+
+    formData.append(
+        "სასმელი",
+        state.drink || "—"
+    );
+
+    formData.append(
+        "დესერტი",
+        state.dessert || "—"
+    );
+
+
+    /* წერილი */
+
+    formData.append(
+        "მისი წერილი",
+        state.message || "წერილი არ დაუტოვებია."
+    );
+
+
+    /* ერთიანი შეჯამება */
+
+    const fullSummary = [
+
+        "♡ პატიების საიტის პასუხები",
+
+        "",
+
+        "კითხვები:",
+
+        ...QUESTIONS.map((question,index) =>
+            `${index + 1}. ${question.title}\nპასუხი: ${state.answers[index] || "—"}`
+        ),
+
+        "",
+
+        `🍽️ საჭმელი: ${state.food || "—"}`,
+
+        `🥤 სასმელი: ${state.drink || "—"}`,
+
+        `🍰 დესერტი: ${state.dessert || "—"}`,
+
+        "",
+
+        "📝 მისი წერილი:",
+
+        state.message || "წერილი არ დაუტოვებია."
+
+    ].join("\n");
+
+
+    formData.append(
+        "სრული პასუხი",
+        fullSummary
+    );
+
+
+    try{
+
+        const response =
+            await fetch(
+                CONFIG.formspreeEndpoint,
+                {
+                    method:"POST",
+
+                    body:formData,
+
+                    headers:{
+                        "Accept":
+                            "application/json"
+                    }
+                }
+            );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "Formspree request failed"
+            );
+
+        }
+
+
+        showScreen("success");
+
+        progressBar.style.width = "100%";
+
+
+    }catch(err){
+
+        console.error(err);
+
+        error.classList.add("show");
+
+        submitBtn.disabled = false;
+
+        submitBtn.style.opacity = "1";
+
+        loading.classList.remove("show");
+
+    }
+
+}
+
+
+$("submitBtn").addEventListener(
+    "click",
+    submitAllData
+);
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+renderQuestion();
+
+</script>
+
+</body>
+</html>
