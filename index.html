@@ -10,29 +10,34 @@
       user-scalable=no,
       viewport-fit=cover">
 
-<meta name="theme-color" content="#080509">
+<meta name="theme-color" content="#0d0409">
 
 <title>ერთი პატარა პაემანი ♡</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@300;400;500;600;700;800&display=swap"
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Georgian:wght@400;500;600;700&family=Noto+Sans+Georgian:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet">
 
 <style>
 :root{
-    --bg:#080509;
-    --bg2:#110811;
+    --bg:#0d0409;
+    --bg2:#1c0a14;
+    --bg3:#2b0d17;
     --pink:#f08aaa;
     --pink2:#ffb4cc;
     --red:#ff4e72;
+    --wine:#7a2340;
     --gold:#d9b66c;
+    --gold-dim:#a98a52;
     --white:#fff8fb;
     --muted:#bcaab3;
     --line:rgba(255,255,255,.12);
     --glass:rgba(255,255,255,.055);
     --shadow:0 25px 80px rgba(0,0,0,.55);
+    --serif:"Noto Serif Georgian",serif;
+    --sans:"Noto Sans Georgian",sans-serif;
 }
 
 *{
@@ -49,11 +54,12 @@ body{
     margin:0;
     min-height:100vh;
     background:
-        radial-gradient(circle at 50% -10%, rgba(240,138,170,.16), transparent 35%),
-        radial-gradient(circle at 0% 80%, rgba(255,78,114,.07), transparent 35%),
-        var(--bg);
+        radial-gradient(circle at 50% -10%, rgba(240,138,170,.18), transparent 38%),
+        radial-gradient(circle at 100% 10%, rgba(217,182,108,.07), transparent 40%),
+        radial-gradient(circle at 0% 85%, rgba(122,35,64,.35), transparent 45%),
+        linear-gradient(180deg, var(--bg2) 0%, var(--bg) 55%);
     color:var(--white);
-    font-family:"Noto Sans Georgian",sans-serif;
+    font-family:var(--sans);
     overflow-x:hidden;
 }
 
@@ -153,17 +159,21 @@ h1,h2,h3,p{
 }
 
 h1{
+    font-family:var(--serif);
+    font-weight:600;
     font-size:clamp(34px,9vw,72px);
     line-height:1.08;
     margin-bottom:20px;
-    letter-spacing:-.035em;
+    letter-spacing:-.02em;
 }
 
 h2{
+    font-family:var(--serif);
+    font-weight:600;
     font-size:clamp(27px,7vw,46px);
     line-height:1.15;
     margin-bottom:14px;
-    letter-spacing:-.025em;
+    letter-spacing:-.015em;
 }
 
 h3{
@@ -203,12 +213,13 @@ h3{
 
 .primary-btn{
     color:#190b11;
-    background:linear-gradient(135deg,#ffc1d6,var(--pink));
-    box-shadow:0 15px 40px rgba(240,138,170,.22);
+    background:linear-gradient(135deg,#ffc1d6,var(--pink) 55%,var(--gold) 130%);
+    box-shadow:0 15px 40px rgba(240,138,170,.25);
 }
 
 .primary-btn:hover{
     transform:translateY(-2px);
+    box-shadow:0 18px 45px rgba(240,138,170,.32);
 }
 
 .primary-btn:active,
@@ -223,11 +234,42 @@ h3{
 }
 
 .hero-card{
-    padding:38px 25px;
+    position:relative;
+    padding:40px 25px 38px;
     border:1px solid var(--line);
     background:rgba(255,255,255,.035);
     box-shadow:var(--shadow);
     border-radius:32px;
+    overflow:hidden;
+    animation:riseIn .9s cubic-bezier(.16,1,.3,1) both;
+}
+
+@keyframes riseIn{
+    from{
+        opacity:0;
+        transform:translateY(18px) scale(.98);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    .hero-card{
+        animation:none;
+    }
+}
+
+.hero-card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:14%;
+    right:14%;
+    height:2px;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+    opacity:.7;
 }
 
 .small-note{
@@ -247,11 +289,24 @@ h3{
 /* QUESTIONS */
 
 .question-card{
-    padding:30px 22px;
+    position:relative;
+    padding:32px 22px;
     border:1px solid var(--line);
     background:var(--glass);
     border-radius:28px;
     box-shadow:var(--shadow);
+    overflow:hidden;
+}
+
+.question-card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:14%;
+    right:14%;
+    height:2px;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+    opacity:.6;
 }
 
 .question-number{
@@ -263,7 +318,9 @@ h3{
 }
 
 .question-title{
+    font-family:var(--serif);
     font-size:24px;
+    font-weight:600;
     line-height:1.4;
     margin-bottom:23px;
 }
@@ -304,77 +361,64 @@ h3{
 
 /* PHOTOS */
 
-.photo-wrap{
+.photo-gallery{
     width:100%;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
 }
 
-.photo-counter{
-    color:var(--gold);
-    font-size:11px;
-    letter-spacing:.13em;
-    font-weight:700;
-    margin-bottom:13px;
-}
-
-.photo-card{
-    position:relative;
+.photo-item{
     width:100%;
-    height:min(72svh,650px);
-    min-height:420px;
-    border-radius:30px;
+    aspect-ratio:1 / 1;
+    border-radius:22px;
     overflow:hidden;
     border:1px solid var(--line);
     background:#100b0f;
-    box-shadow:var(--shadow);
+    box-shadow:0 15px 45px rgba(0,0,0,.35);
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-.photo-card img{
+.photo-item img{
     width:100%;
     height:100%;
     display:block;
-    object-fit:cover;
-}
-
-.photo-overlay{
-    position:absolute;
-    inset:auto 0 0;
-    padding:80px 22px 24px;
-    background:linear-gradient(transparent,rgba(0,0,0,.8));
-}
-
-.photo-caption{
-    font-size:14px;
-    line-height:1.6;
-    color:#fff;
-}
-
-.photo-controls{
-    display:flex;
-    gap:10px;
-    justify-content:space-between;
-    margin-top:15px;
-}
-
-.photo-controls button{
-    flex:1;
+    object-fit:contain;
+    background:#100b0f;
 }
 
 /* LETTER */
 
 .letter{
-    padding:34px 25px;
+    position:relative;
+    padding:36px 25px;
     border:1px solid rgba(217,182,108,.22);
     background:
-        linear-gradient(145deg,rgba(217,182,108,.07),rgba(255,255,255,.025));
+        linear-gradient(145deg,rgba(217,182,108,.08),rgba(255,255,255,.025));
     border-radius:30px;
     box-shadow:var(--shadow);
+    overflow:hidden;
+}
+
+.letter::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:14%;
+    right:14%;
+    height:2px;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
 }
 
 .letter-line{
-    width:45px;
-    height:1px;
+    width:8px;
+    height:8px;
     background:var(--gold);
+    transform:rotate(45deg);
     margin:0 auto 25px;
+    box-shadow:0 0 12px rgba(217,182,108,.5);
 }
 
 .letter p{
@@ -384,9 +428,12 @@ h3{
 }
 
 .signature{
+    font-family:var(--serif);
+    font-style:italic;
     color:var(--pink2);
     margin-top:25px;
-    font-weight:700;
+    font-weight:600;
+    font-size:17px;
 }
 
 /* CHOICES */
@@ -431,6 +478,44 @@ h3{
 }
 
 .choice.selected{
+    border-color:var(--pink);
+    background:rgba(240,138,170,.13);
+    box-shadow:0 10px 35px rgba(240,138,170,.09);
+}
+
+/* RESTAURANTS */
+
+.restaurant-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.restaurant{
+    min-height:120px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.035);
+    color:var(--white);
+    border-radius:22px;
+    padding:20px 14px;
+    text-align:center;
+    transition:.25s ease;
+}
+
+.restaurant strong{
+    display:block;
+    font-size:14px;
+    line-height:1.5;
+}
+
+.restaurant span{
+    display:block;
+    margin-top:7px;
+    color:var(--muted);
+    font-size:11px;
+}
+
+.restaurant.selected{
     border-color:var(--pink);
     background:rgba(240,138,170,.13);
     box-shadow:0 10px 35px rgba(240,138,170,.09);
@@ -560,7 +645,11 @@ h3{
         transform:translateY(0) rotate(0deg);
         opacity:0;
     }
-    15%{opacity:1}
+
+    15%{
+        opacity:1;
+    }
+
     to{
         transform:translateY(-110vh) rotate(30deg);
         opacity:0;
@@ -570,6 +659,7 @@ h3{
 /* DESKTOP */
 
 @media(min-width:700px){
+
     .screen{
         padding-left:30px;
         padding-right:30px;
@@ -585,14 +675,24 @@ h3{
         grid-template-columns:repeat(3,1fr);
     }
 
-    .photo-card{
-        height:680px;
+    .restaurant-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .photo-gallery{
+        grid-template-columns:repeat(3,1fr);
+        gap:16px;
+    }
+
+    .photo-item{
+        aspect-ratio:1 / 1;
     }
 }
 
 /* SMALL PHONES */
 
 @media(max-width:390px){
+
     .screen{
         padding-left:14px;
         padding-right:14px;
@@ -617,8 +717,35 @@ h3{
         border-radius:25px;
     }
 
-    .photo-card{
-        min-height:390px;
+    .photo-gallery{
+        gap:8px;
+    }
+
+    .photo-item{
+        border-radius:17px;
+    }
+
+    .restaurant-grid{
+        gap:8px;
+    }
+
+    .restaurant{
+        min-height:110px;
+        padding:17px 9px;
+        border-radius:18px;
+    }
+
+    .restaurant strong{
+        font-size:12px;
+    }
+
+    .choice{
+        padding:17px 9px;
+        border-radius:17px;
+    }
+
+    .choice strong{
+        font-size:13px;
     }
 }
 </style>
@@ -637,12 +764,18 @@ h3{
         <div class="progress-bar" id="progressBar"></div>
     </div>
 
+
     <!-- START -->
+
     <section class="screen" id="screen-start">
+
         <div class="container center">
+
             <div class="hero-card">
 
-                <div class="eyebrow">ერთი პატარა წერილი</div>
+                <div class="eyebrow">
+                    ერთი პატარა წერილი
+                </div>
 
                 <h1>
                     სანამ ისევ<br>
@@ -656,9 +789,11 @@ h3{
                 </p>
 
                 <div class="action-row">
+
                     <button class="primary-btn" id="startBtn">
                         დავიწყოთ ♡
                     </button>
+
                 </div>
 
                 <div class="small-note">
@@ -666,12 +801,16 @@ h3{
                 </div>
 
             </div>
+
         </div>
+
     </section>
 
 
     <!-- QUESTIONS -->
+
     <section class="screen hidden" id="screen-question">
+
         <div class="container">
 
             <div class="question-card">
@@ -685,64 +824,106 @@ h3{
                 <div class="answers" id="answers"></div>
 
                 <div class="next-area">
-                    <button class="primary-btn hidden" id="nextQuestionBtn">
+
+                    <button
+                        class="primary-btn hidden"
+                        id="nextQuestionBtn">
+
                         შემდეგი
+
                     </button>
+
                 </div>
 
             </div>
 
         </div>
+
     </section>
 
 
     <!-- PHOTOS -->
+
     <section class="screen hidden" id="screen-photo">
+
         <div class="container">
 
             <div class="photo-wrap center">
 
-                <div class="eyebrow">ჩვენი პატარა მოგონებები</div>
-
-                <div class="photo-counter" id="photoCounter">
-                    01 / 06
+                <div class="eyebrow">
+                    ჩვენი პატარა მოგონებები
                 </div>
 
-                <div class="photo-card">
-                    <img id="memoryImage"
-                         src="photo1.jpg"
-                         alt="ჩვენი მოგონება">
+                <div class="photo-gallery">
 
-                    <div class="photo-overlay">
-                        <div class="photo-caption" id="photoCaption">
-                            ზოგი მოგონება უბრალოდ ფოტოზე მეტი რამეა.
-                        </div>
+                    <div class="photo-item">
+                        <img
+                            src="photo1.jpg"
+                            alt="ჩვენი მოგონება 1">
                     </div>
+
+                    <div class="photo-item">
+                        <img
+                            src="photo2.jpg"
+                            alt="ჩვენი მოგონება 2">
+                    </div>
+
+                    <div class="photo-item">
+                        <img
+                            src="photo3.jpg"
+                            alt="ჩვენი მოგონება 3">
+                    </div>
+
+                    <div class="photo-item">
+                        <img
+                            src="photo4.jpg"
+                            alt="ჩვენი მოგონება 4">
+                    </div>
+
+                    <div class="photo-item">
+                        <img
+                            src="photo5.jpg"
+                            alt="ჩვენი მოგონება 5">
+                    </div>
+
+                    <div class="photo-item">
+                        <img
+                            src="photo6.jpg"
+                            alt="ჩვენი მოგონება 6">
+                    </div>
+
                 </div>
 
-                <div class="photo-controls">
-                    <button class="secondary-btn" id="prevPhoto">
-                        ← უკან
+                <div class="action-row">
+
+                    <button
+                        class="primary-btn"
+                        id="toLetterBtn">
+
+                        შემდეგი →
+
                     </button>
 
-                    <button class="primary-btn" id="nextPhoto">
-                        შემდეგი →
-                    </button>
                 </div>
 
             </div>
 
         </div>
+
     </section>
 
 
     <!-- APOLOGY LETTER -->
+
     <section class="screen hidden" id="screen-letter">
+
         <div class="container">
 
             <div class="letter center">
 
-                <div class="eyebrow">ჩემი სიტყვები შენთვის</div>
+                <div class="eyebrow">
+                    ჩემი სიტყვები შენთვის
+                </div>
 
                 <div class="letter-line"></div>
 
@@ -752,23 +933,28 @@ h3{
                 </h2>
 
                 <p>
-                    ვიცი, რომ შეიძლება ჩემი საქციელით გატკინე,
-                    გაგაბრაზე ან უბრალოდ იმედი გაგიცრუე.
-                    არ მინდა თავი ვიმართლო და არც იმას ვითხოვ,
-                    რომ ერთ წამში დაგავიწყდეს ყველაფერი.
+                    ჩემო სიყვარულო, მთელი გულით გთხოვ პატიებას
+                    ყველაფრისთვის, რაც გაწყენინე.
+                    ძალიან ვნანობ ჩემს შეცდომებს და
+                    რომ შემეძლოს, ყველაფერს თავიდან გავაკეთებდი.
+                    მინდა იცოდე, რომ ძალიან მიყვარხარ და
+                    შენ ჩემთვის ყველაზე ძვირფასი ადამიანი ხარ.
                 </p>
 
                 <p>
-                    უბრალოდ მინდა იცოდე, რომ შენი გრძნობები ჩემთვის
-                    მნიშვნელოვანია. თუ გაწყენინე — მართლა ვწუხვარ.
-                    შენთან კამათში გამარჯვება არასდროს არის ჩემთვის
-                    მნიშვნელოვანი.
+                    არ მინდა, ჩემი შეცდომების გამო დაგკარგო.
+                    ყველაფერს გავაკეთებ, რომ დაგიბრუნო ნდობა,
+                    გაგაბედნიერო და ისე გაგიფრთხილდე,
+                    როგორც იმსახურებ.
                 </p>
 
                 <p>
-                    ამიტომ მინდა ერთი პატარა საღამო დაგითმო.
-                    არა იმისთვის, რომ ყველაფერი ძალით გამოვასწოროთ,
-                    არამედ იმისთვის, რომ ერთად მშვიდად ვიყოთ.
+                    ვიცი, რომ მხოლოდ სიტყვები საკმარისი არ არის,
+                    ამიტომ მინდა, ჩემი საქციელით დაგიმტკიცო,
+                    რომ მართლა შემიძლია შეცვლა.
+                    შენ ჩემი ადამიანი ხარ და მინდა,
+                    მთელი ცხოვრება შენ გვერდით ვიყო.
+                    მაპატიე, ჩემო სიყვარულო. ❤️
                 </p>
 
                 <div class="signature">
@@ -776,35 +962,149 @@ h3{
                 </div>
 
                 <div class="action-row">
-                    <button class="primary-btn" id="toDinnerBtn">
+
+                    <button
+                        class="primary-btn"
+                        id="toRestaurantBtn">
+
                         ვახშამზე დაგპატიჟებ 🍽️
+
                     </button>
+
                 </div>
 
             </div>
 
         </div>
+
     </section>
 
 
-    <!-- DINNER -->
-    <section class="screen hidden" id="screen-dinner">
+    <!-- RESTAURANT -->
+
+    <section class="screen hidden" id="screen-restaurant">
+
         <div class="container">
 
             <div class="center">
-                <div class="eyebrow">შენი არჩევანია</div>
+
+                <div class="eyebrow">
+                    პირველი არჩევანი
+                </div>
 
                 <h2>
-                    მოდი, შენ გადაწყვიტე<br>
-                    <span class="accent">რას შევჭამთ.</span>
+                    სად წავიდეთ<br>
+                    <span class="accent">ვახშამზე?</span>
                 </h2>
 
                 <p class="subtitle">
-                    მე უბრალოდ ვმასპინძლობ.
-                    დღეს არჩევანი მთლიანად შენია.
+                    ამჯერად ადგილსაც შენ ირჩევ.
                 </p>
+
             </div>
 
+            <div class="restaurant-grid">
+
+                <button
+                    class="restaurant"
+                    data-type="restaurant"
+                    data-value="Bodbe hotel">
+
+                    <strong>
+                        Bodbe hotel
+                    </strong>
+
+                    <span>
+                        შენი არჩევანი
+                    </span>
+
+                </button>
+
+                <button
+                    class="restaurant"
+                    data-type="restaurant"
+                    data-value="Kvareli Lake Resort">
+
+                    <strong>
+                        Kvareli Lake Resort
+                    </strong>
+
+                    <span>
+                        შენი არჩევანი
+                    </span>
+
+                </button>
+
+                <button
+                    class="restaurant"
+                    data-type="restaurant"
+                    data-value="Pabellon">
+
+                    <strong>
+                        Pabellon
+                    </strong>
+
+                    <span>
+                        შენი არჩევანი
+                    </span>
+
+                </button>
+
+                <button
+                    class="restaurant"
+                    data-type="restaurant"
+                    data-value="Panorama Kakheti">
+
+                    <strong>
+                        Panorama Kakheti
+                    </strong>
+
+                    <span>
+                        შენი არჩევანი
+                    </span>
+
+                </button>
+
+            </div>
+
+            <div class="action-row">
+
+                <button
+                    class="primary-btn"
+                    id="toFoodBtn">
+
+                    შემდეგი →
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOD -->
+
+    <section class="screen hidden" id="screen-food">
+
+        <div class="container">
+
+            <div class="center">
+
+                <div class="eyebrow">
+                    მეორე არჩევანი
+                </div>
+
+                <h2>
+                    რას შევჭამთ?
+                </h2>
+
+                <p class="subtitle">
+                    საჭმელსაც შენ ირჩევ.
+                </p>
+
+            </div>
 
             <div class="choice-group">
 
@@ -812,54 +1112,110 @@ h3{
                     🍽️ საჭმელი
                 </div>
 
-                <div class="choice-grid" id="foodChoices">
+                <div class="choice-grid">
 
-                    <button class="choice"
-                            data-type="food"
-                            data-value="სტეიკი">
+                    <button
+                        class="choice"
+                        data-type="food"
+                        data-value="სტეიკი">
+
                         <strong>სტეიკი</strong>
                         <span>კარგი საღამოსთვის</span>
+
                     </button>
 
-                    <button class="choice"
-                            data-type="food"
-                            data-value="პასტა">
+                    <button
+                        class="choice"
+                        data-type="food"
+                        data-value="პასტა">
+
                         <strong>პასტა</strong>
                         <span>კლასიკური არჩევანი</span>
+
                     </button>
 
-                    <button class="choice"
-                            data-type="food"
-                            data-value="პიცა">
+                    <button
+                        class="choice"
+                        data-type="food"
+                        data-value="პიცა">
+
                         <strong>პიცა</strong>
                         <span>უბრალოდ გემრიელი</span>
+
                     </button>
 
-                    <button class="choice"
-                            data-type="food"
-                            data-value="ბურგერი">
+                    <button
+                        class="choice"
+                        data-type="food"
+                        data-value="ბურგერი">
+
                         <strong>ბურგერი</strong>
                         <span>კარგი იდეაა</span>
+
                     </button>
 
-                    <button class="choice"
-                            data-type="food"
-                            data-value="სალათი">
+                    <button
+                        class="choice"
+                        data-type="food"
+                        data-value="სალათი">
+
                         <strong>სალათი</strong>
                         <span>მსუბუქი ვარიანტი</span>
+
                     </button>
 
-                    <button class="choice"
-                            data-type="food"
-                            data-value="შენ აირჩიე">
+                    <button
+                        class="choice"
+                        data-type="food"
+                        data-value="შენ აირჩიე">
+
                         <strong>შენ აირჩიე</strong>
                         <span>როგორც გინდა</span>
+
                     </button>
 
                 </div>
 
             </div>
 
+            <div class="action-row">
+
+                <button
+                    class="primary-btn"
+                    id="toDrinkBtn">
+
+                    შემდეგი →
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DRINK -->
+
+    <section class="screen hidden" id="screen-drink">
+
+        <div class="container">
+
+            <div class="center">
+
+                <div class="eyebrow">
+                    მესამე არჩევანი
+                </div>
+
+                <h2>
+                    რას დავლევთ?
+                </h2>
+
+                <p class="subtitle">
+                    სასმელიც შენ გადაწყვიტე.
+                </p>
+
+            </div>
 
             <div class="choice-group">
 
@@ -869,52 +1225,109 @@ h3{
 
                 <div class="choice-grid">
 
-                    <button class="choice"
-                            data-type="drink"
-                            data-value="კოკა-კოლა">
+                    <button
+                        class="choice"
+                        data-type="drink"
+                        data-value="კოკა-კოლა">
+
                         <strong>კოკა-კოლა</strong>
                         <span>ცივი და მარტივი</span>
+
                     </button>
 
-                    <button class="choice"
-                            data-type="drink"
-                            data-value="ლიმონათი">
+                    <button
+                        class="choice"
+                        data-type="drink"
+                        data-value="ლიმონათი">
+
                         <strong>ლიმონათი</strong>
                         <span>რაღაც მსუბუქი</span>
+
                     </button>
 
-                    <button class="choice"
-                            data-type="drink"
-                            data-value="წვენი">
+                    <button
+                        class="choice"
+                        data-type="drink"
+                        data-value="წვენი">
+
                         <strong>წვენი</strong>
                         <span>ტკბილი არჩევანი</span>
+
                     </button>
 
-                    <button class="choice"
-                            data-type="drink"
-                            data-value="წყალი">
+                    <button
+                        class="choice"
+                        data-type="drink"
+                        data-value="წყალი">
+
                         <strong>წყალი</strong>
                         <span>კლასიკა</span>
+
                     </button>
 
-                    <button class="choice"
-                            data-type="drink"
-                            data-value="ყავა">
+                    <button
+                        class="choice"
+                        data-type="drink"
+                        data-value="ყავა">
+
                         <strong>ყავა</strong>
                         <span>საღამოსთვის</span>
+
                     </button>
 
-                    <button class="choice"
-                            data-type="drink"
-                            data-value="შენ აირჩიე">
+                    <button
+                        class="choice"
+                        data-type="drink"
+                        data-value="შენ აირჩიე">
+
                         <strong>შენ აირჩიე</strong>
                         <span>როგორც გინდა</span>
+
                     </button>
 
                 </div>
 
             </div>
 
+            <div class="action-row">
+
+                <button
+                    class="primary-btn"
+                    id="toDessertBtn">
+
+                    შემდეგი →
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DESSERT -->
+
+    <section class="screen hidden" id="screen-dessert">
+
+        <div class="container">
+
+            <div class="center">
+
+                <div class="eyebrow">
+                    მეოთხე არჩევანი
+                </div>
+
+                <h2>
+                    და ბოლოს...<br>
+                    <span class="accent">დესერტი.</span>
+                </h2>
+
+                <p class="subtitle">
+                    საღამოს ტკბილი დასასრული.
+                </p>
+
+            </div>
 
             <div class="choice-group">
 
@@ -924,71 +1337,100 @@ h3{
 
                 <div class="choice-grid">
 
-                    <button class="choice"
-                            data-type="dessert"
-                            data-value="ჩიზქეიქი">
+                    <button
+                        class="choice"
+                        data-type="dessert"
+                        data-value="ჩიზქეიქი">
+
                         <strong>ჩიზქეიქი</strong>
                         <span>ტკბილი დასასრული</span>
+
                     </button>
 
-                    <button class="choice"
-                            data-type="dessert"
-                            data-value="ტირამისუ">
+                    <button
+                        class="choice"
+                        data-type="dessert"
+                        data-value="ტირამისუ">
+
                         <strong>ტირამისუ</strong>
                         <span>იტალიური განწყობა</span>
+
                     </button>
 
-                    <button class="choice"
-                            data-type="dessert"
-                            data-value="ნაყინი">
+                    <button
+                        class="choice"
+                        data-type="dessert"
+                        data-value="ნაყინი">
+
                         <strong>ნაყინი</strong>
                         <span>ცივი არჩევანი</span>
+
                     </button>
 
-                    <button class="choice"
-                            data-type="dessert"
-                            data-value="შოკოლადის დესერტი">
+                    <button
+                        class="choice"
+                        data-type="dessert"
+                        data-value="შოკოლადის დესერტი">
+
                         <strong>შოკოლადი</strong>
                         <span>ამის ახსნა არ უნდა</span>
+
                     </button>
 
-                    <button class="choice"
-                            data-type="dessert"
-                            data-value="ხილი">
+                    <button
+                        class="choice"
+                        data-type="dessert"
+                        data-value="ხილი">
+
                         <strong>ხილი</strong>
                         <span>მსუბუქი დასასრული</span>
+
                     </button>
 
-                    <button class="choice"
-                            data-type="dessert"
-                            data-value="შენ აირჩიე">
+                    <button
+                        class="choice"
+                        data-type="dessert"
+                        data-value="შენ აირჩიე">
+
                         <strong>შენ აირჩიე</strong>
                         <span>შენი წესებია</span>
+
                     </button>
 
                 </div>
 
             </div>
 
-
             <div class="action-row">
-                <button class="primary-btn" id="toMessageBtn">
+
+                <button
+                    class="primary-btn"
+                    id="toMessageBtn">
+
                     შემდეგი ♡
+
                 </button>
+
             </div>
 
         </div>
+
     </section>
 
 
     <!-- HER MESSAGE -->
+
     <section class="screen hidden" id="screen-message">
+
         <div class="container">
 
             <div class="question-card">
 
                 <div class="center">
-                    <div class="eyebrow">ახლა შენი ჯერია</div>
+
+                    <div class="eyebrow">
+                        ახლა შენი ჯერია
+                    </div>
 
                     <h2>
                         პატარა წერილი<br>
@@ -1001,6 +1443,7 @@ h3{
                         გაგეცინა? ეგეც დაწერე.
                         უბრალოდ მითხარი, რასაც ფიქრობ.
                     </p>
+
                 </div>
 
                 <textarea
@@ -1010,23 +1453,35 @@ h3{
                     placeholder="დამიწერე აქ რამე..."></textarea>
 
                 <div class="action-row">
-                    <button class="primary-btn" id="toSummaryBtn">
+
+                    <button
+                        class="primary-btn"
+                        id="toSummaryBtn">
+
                         ჩემი პასუხების ნახვა
+
                     </button>
+
                 </div>
 
             </div>
 
         </div>
+
     </section>
 
 
     <!-- SUMMARY -->
+
     <section class="screen hidden" id="screen-summary">
+
         <div class="container">
 
             <div class="center">
-                <div class="eyebrow">ბოლო ნაბიჯი</div>
+
+                <div class="eyebrow">
+                    ბოლო ნაბიჯი
+                </div>
 
                 <h2>
                     ასე გამოიყურება<br>
@@ -1037,85 +1492,148 @@ h3{
                     გადაამოწმე ყველაფერი და როცა მზად იქნები,
                     ერთ წერილად გამომიგზავნე.
                 </p>
+
             </div>
 
             <div class="summary">
 
                 <div class="summary-item">
+
                     <div class="summary-label">
                         კითხვებზე პასუხები
                     </div>
 
-                    <div class="summary-value"
-                         id="summaryQuestions"></div>
+                    <div
+                        class="summary-value"
+                        id="summaryQuestions">
+                    </div>
+
                 </div>
 
+
                 <div class="summary-item">
+
+                    <div class="summary-label">
+                        რესტორანი
+                    </div>
+
+                    <div
+                        class="summary-value"
+                        id="summaryRestaurant">
+
+                        —
+
+                    </div>
+
+                </div>
+
+
+                <div class="summary-item">
+
                     <div class="summary-label">
                         საჭმელი
                     </div>
 
-                    <div class="summary-value"
-                         id="summaryFood">
+                    <div
+                        class="summary-value"
+                        id="summaryFood">
+
                         —
+
                     </div>
+
                 </div>
 
+
                 <div class="summary-item">
+
                     <div class="summary-label">
                         სასმელი
                     </div>
 
-                    <div class="summary-value"
-                         id="summaryDrink">
+                    <div
+                        class="summary-value"
+                        id="summaryDrink">
+
                         —
+
                     </div>
+
                 </div>
 
+
                 <div class="summary-item">
+
                     <div class="summary-label">
                         დესერტი
                     </div>
 
-                    <div class="summary-value"
-                         id="summaryDessert">
+                    <div
+                        class="summary-value"
+                        id="summaryDessert">
+
                         —
+
                     </div>
+
                 </div>
 
+
                 <div class="summary-item">
+
                     <div class="summary-label">
                         შენი წერილი
                     </div>
 
-                    <div class="summary-value"
-                         id="summaryMessage">
+                    <div
+                        class="summary-value"
+                        id="summaryMessage">
+
                         —
+
                     </div>
+
                 </div>
 
             </div>
 
-            <button class="primary-btn submit-btn"
-                    id="submitBtn">
+
+            <button
+                class="primary-btn submit-btn"
+                id="submitBtn">
+
                 ყველაფერი გავაგზავნოთ ♡
+
             </button>
 
-            <div class="loading" id="loading">
+
+            <div
+                class="loading"
+                id="loading">
+
                 შენი პასუხები იგზავნება...
+
             </div>
 
-            <div class="error" id="submitError">
-                გაგზავნისას პრობლემა მოხდა. შეამოწმე ინტერნეტი და
-                კიდევ ერთხელ სცადე.
+
+            <div
+                class="error"
+                id="submitError">
+
+                გაგზავნისას პრობლემა მოხდა.
+                შეამოწმე ინტერნეტი და კიდევ ერთხელ სცადე.
+
             </div>
 
         </div>
+
     </section>
 
 
     <!-- SUCCESS -->
+
     <section class="screen hidden" id="screen-success">
+
         <div class="container center">
 
             <div class="hero-card">
@@ -1140,6 +1658,7 @@ h3{
             </div>
 
         </div>
+
     </section>
 
 </div>
@@ -1148,6 +1667,7 @@ h3{
 <script>
 "use strict";
 
+
 /* =========================================================
    CONFIG
 ========================================================= */
@@ -1155,7 +1675,7 @@ h3{
 const CONFIG = {
 
     formspreeEndpoint:
-        "https://formspree.io/f/xoevqrey",
+        "https://formspree.io/f/mnpnbybe",
 
     photoFiles: [
         "photo1.jpg",
@@ -1177,6 +1697,7 @@ const QUESTIONS = [
 
     {
         title: "ახლა რამდენად გაბრაზებული ხარ ჩემზე?",
+
         answers: [
             "ცოტათი 😌",
             "საშუალოდ 😤",
@@ -1187,6 +1708,7 @@ const QUESTIONS = [
 
     {
         title: "მომცემ შანსს, რომ ეს ყველაფერი გამოვასწორო?",
+
         answers: [
             "კი",
             "ალბათ",
@@ -1197,6 +1719,7 @@ const QUESTIONS = [
 
     {
         title: "ერთი მშვიდი საღამო ერთად?",
+
         answers: [
             "კი, შეიძლება",
             "მხოლოდ თუ კარგ საჭმელს ვჭამთ",
@@ -1206,7 +1729,8 @@ const QUESTIONS = [
     },
 
     {
-        title: "ბოლოს ერთი რამე მითხარი — მენდობი?",
+        title: "ბოლოს ერთი რამე მითხარი — მომცემ ბოლო შანს?",
+
         answers: [
             "კი ♡",
             "მინდა რომ ისევ გენდო",
@@ -1228,7 +1752,7 @@ const state = {
 
     answers: [],
 
-    photos: 0,
+    restaurant: "",
 
     food: "",
 
@@ -1247,27 +1771,47 @@ const state = {
 
 const $ = id => document.getElementById(id);
 
+
 const screens = {
 
-    start: $("screen-start"),
+    start:
+        $("screen-start"),
 
-    question: $("screen-question"),
+    question:
+        $("screen-question"),
 
-    photo: $("screen-photo"),
+    photo:
+        $("screen-photo"),
 
-    letter: $("screen-letter"),
+    letter:
+        $("screen-letter"),
 
-    dinner: $("screen-dinner"),
+    restaurant:
+        $("screen-restaurant"),
 
-    message: $("screen-message"),
+    food:
+        $("screen-food"),
 
-    summary: $("screen-summary"),
+    drink:
+        $("screen-drink"),
 
-    success: $("screen-success")
+    dessert:
+        $("screen-dessert"),
+
+    message:
+        $("screen-message"),
+
+    summary:
+        $("screen-summary"),
+
+    success:
+        $("screen-success")
 
 };
 
-const progressBar = $("progressBar");
+
+const progressBar =
+    $("progressBar");
 
 
 /* =========================================================
@@ -1275,6 +1819,7 @@ const progressBar = $("progressBar");
 ========================================================= */
 
 const preloadedImages = [];
+
 
 function preloadPhotos(){
 
@@ -1290,6 +1835,7 @@ function preloadPhotos(){
 
 }
 
+
 preloadPhotos();
 
 
@@ -1297,14 +1843,30 @@ preloadPhotos();
    FLOATING HEARTS
 ========================================================= */
 
+const HEART_GLYPHS = ["♡", "✦", "✧"];
+
+const HEART_COLORS = [
+    "rgba(255,150,180,.35)",
+    "rgba(217,182,108,.3)",
+    "rgba(255,196,214,.3)"
+];
+
 function createHeart(){
 
-    const heart = document.createElement("div");
+    const heart =
+        document.createElement("div");
 
     heart.className = "heart";
 
     heart.textContent =
-        Math.random() > .5 ? "♡" : "✦";
+        HEART_GLYPHS[
+            Math.floor(Math.random() * HEART_GLYPHS.length)
+        ];
+
+    heart.style.color =
+        HEART_COLORS[
+            Math.floor(Math.random() * HEART_COLORS.length)
+        ];
 
     heart.style.left =
         Math.random() * 100 + "%";
@@ -1325,6 +1887,7 @@ function createHeart(){
 
 }
 
+
 setInterval(createHeart, 1300);
 
 
@@ -1333,15 +1896,21 @@ setInterval(createHeart, 1300);
 ========================================================= */
 
 const screenOrder = [
+
     "start",
     "question",
     "photo",
     "letter",
-    "dinner",
+    "restaurant",
+    "food",
+    "drink",
+    "dessert",
     "message",
     "summary",
     "success"
+
 ];
+
 
 function showScreen(name){
 
@@ -1351,9 +1920,13 @@ function showScreen(name){
 
     });
 
+
     screens[name].classList.remove("hidden");
 
-    const index = screenOrder.indexOf(name);
+
+    const index =
+        screenOrder.indexOf(name);
+
 
     const progress =
         Math.max(
@@ -1364,7 +1937,10 @@ function showScreen(name){
             )
         );
 
-    progressBar.style.width = progress + "%";
+
+    progressBar.style.width =
+        progress + "%";
+
 
     window.scrollTo({
         top:0,
@@ -1398,42 +1974,58 @@ function renderQuestion(){
     const q =
         QUESTIONS[state.currentQuestion];
 
+
     $("questionNumber").textContent =
         `კითხვა ${state.currentQuestion + 1} / ${QUESTIONS.length}`;
+
 
     $("questionTitle").textContent =
         q.title;
 
+
     const answersContainer =
         $("answers");
 
+
     answersContainer.innerHTML = "";
+
 
     $("nextQuestionBtn")
         .classList.add("hidden");
 
-    q.answers.forEach((answer, index) => {
+
+    q.answers.forEach(answer => {
 
         const button =
             document.createElement("button");
 
-        button.className = "answer-btn";
 
-        button.textContent = answer;
+        button.className =
+            "answer-btn";
+
+
+        button.textContent =
+            answer;
+
 
         if(
-            state.answers[state.currentQuestion] === answer
+            state.answers[state.currentQuestion]
+            === answer
         ){
+
             button.classList.add("selected");
 
             $("nextQuestionBtn")
                 .classList.remove("hidden");
+
         }
+
 
         button.addEventListener("click", () => {
 
             state.answers[state.currentQuestion] =
                 answer;
+
 
             document
                 .querySelectorAll(".answer-btn")
@@ -1441,12 +2033,15 @@ function renderQuestion(){
                     btn.classList.remove("selected")
                 );
 
+
             button.classList.add("selected");
+
 
             $("nextQuestionBtn")
                 .classList.remove("hidden");
 
         });
+
 
         answersContainer.appendChild(button);
 
@@ -1463,15 +2058,14 @@ $("nextQuestionBtn").addEventListener("click", () => {
         return;
     }
 
+
     state.currentQuestion++;
 
+
     if(
-        state.currentQuestion >= QUESTIONS.length
+        state.currentQuestion
+        >= QUESTIONS.length
     ){
-
-        state.photos = 0;
-
-        renderPhoto();
 
         showScreen("photo");
 
@@ -1479,148 +2073,115 @@ $("nextQuestionBtn").addEventListener("click", () => {
 
     }
 
+
     renderQuestion();
 
 });
 
 
 /* =========================================================
-   PHOTOS
+   PHOTOS → LETTER
 ========================================================= */
 
-const photoCaptions = [
+$("toLetterBtn").addEventListener("click", () => {
 
-    "ზოგი მოგონება უბრალოდ ფოტოზე მეტი რამეა.",
-
-    "ეს მომენტი ისევ მახსოვს.",
-
-    "კარგი დღეები ყოველთვის რჩება.",
-
-    "ზოგჯერ ერთი ფოტო ბევრ რამეს ამბობს.",
-
-    "ჩვენი პატარა სამყაროს კიდევ ერთი ნაწილი.",
-
-    "და კიდევ ბევრი ასეთი მომენტი წინ გვაქვს."
-
-];
-
-
-function renderPhoto(){
-
-    const index = state.photos;
-
-    $("memoryImage").src =
-        CONFIG.photoFiles[index];
-
-    $("photoCounter").textContent =
-        `${String(index + 1).padStart(2,"0")} / 06`;
-
-    $("photoCaption").textContent =
-        photoCaptions[index];
-
-    $("prevPhoto").style.visibility =
-        index === 0 ? "hidden" : "visible";
-
-    $("nextPhoto").textContent =
-        index === CONFIG.photoFiles.length - 1
-            ? "გაგრძელება →"
-            : "შემდეგი →";
-
-}
-
-
-$("nextPhoto").addEventListener("click", () => {
-
-    if(
-        state.photos <
-        CONFIG.photoFiles.length - 1
-    ){
-
-        state.photos++;
-
-        renderPhoto();
-
-    }else{
-
-        showScreen("letter");
-
-    }
-
-});
-
-
-$("prevPhoto").addEventListener("click", () => {
-
-    if(state.photos > 0){
-
-        state.photos--;
-
-        renderPhoto();
-
-    }
+    showScreen("letter");
 
 });
 
 
 /* =========================================================
-   APOLOGY → DINNER
+   LETTER → RESTAURANT
 ========================================================= */
 
-$("toDinnerBtn").addEventListener("click", () => {
+$("toRestaurantBtn").addEventListener("click", () => {
 
-    showScreen("dinner");
+    showScreen("restaurant");
 
 });
 
 
 /* =========================================================
-   CHOICES
+   RESTAURANT
 ========================================================= */
 
 document
-    .querySelectorAll(".choice")
+    .querySelectorAll(".restaurant")
     .forEach(button => {
 
         button.addEventListener("click", () => {
 
-            const type =
-                button.dataset.type;
-
             const value =
                 button.dataset.value;
 
+
             document
-                .querySelectorAll(
-                    `.choice[data-type="${type}"]`
-                )
+                .querySelectorAll(".restaurant")
                 .forEach(item =>
                     item.classList.remove("selected")
                 );
 
+
             button.classList.add("selected");
 
-            if(type === "food"){
-                state.food = value;
-            }
 
-            if(type === "drink"){
-                state.drink = value;
-            }
-
-            if(type === "dessert"){
-                state.dessert = value;
-            }
+            state.restaurant =
+                value;
 
         });
 
     });
 
 
+$("toFoodBtn").addEventListener("click", () => {
+
+    if(!state.restaurant){
+
+        alert("ჯერ რესტორანი აირჩიე ♡");
+
+        return;
+
+    }
+
+
+    showScreen("food");
+
+});
+
+
 /* =========================================================
-   DINNER → MESSAGE
+   FOOD
 ========================================================= */
 
-$("toMessageBtn").addEventListener("click", () => {
+document
+    .querySelectorAll(
+        '#screen-food .choice'
+    )
+    .forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            document
+                .querySelectorAll(
+                    '#screen-food .choice'
+                )
+                .forEach(item =>
+                    item.classList.remove("selected")
+                );
+
+
+            button.classList.add("selected");
+
+
+            state.food =
+                button.dataset.value;
+
+        });
+
+    });
+
+
+$("toDrinkBtn").addEventListener("click", () => {
 
     if(!state.food){
 
@@ -1630,6 +2191,46 @@ $("toMessageBtn").addEventListener("click", () => {
 
     }
 
+
+    showScreen("drink");
+
+});
+
+
+/* =========================================================
+   DRINK
+========================================================= */
+
+document
+    .querySelectorAll(
+        '#screen-drink .choice'
+    )
+    .forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            document
+                .querySelectorAll(
+                    '#screen-drink .choice'
+                )
+                .forEach(item =>
+                    item.classList.remove("selected")
+                );
+
+
+            button.classList.add("selected");
+
+
+            state.drink =
+                button.dataset.value;
+
+        });
+
+    });
+
+
+$("toDessertBtn").addEventListener("click", () => {
+
     if(!state.drink){
 
         alert("ჯერ სასმელი აირჩიე ♡");
@@ -1638,6 +2239,46 @@ $("toMessageBtn").addEventListener("click", () => {
 
     }
 
+
+    showScreen("dessert");
+
+});
+
+
+/* =========================================================
+   DESSERT
+========================================================= */
+
+document
+    .querySelectorAll(
+        '#screen-dessert .choice'
+    )
+    .forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            document
+                .querySelectorAll(
+                    '#screen-dessert .choice'
+                )
+                .forEach(item =>
+                    item.classList.remove("selected")
+                );
+
+
+            button.classList.add("selected");
+
+
+            state.dessert =
+                button.dataset.value;
+
+        });
+
+    });
+
+
+$("toMessageBtn").addEventListener("click", () => {
+
     if(!state.dessert){
 
         alert("ჯერ დესერტი აირჩიე ♡");
@@ -1645,6 +2286,7 @@ $("toMessageBtn").addEventListener("click", () => {
         return;
 
     }
+
 
     showScreen("message");
 
@@ -1660,7 +2302,9 @@ $("toSummaryBtn").addEventListener("click", () => {
     state.message =
         $("herMessage").value.trim();
 
+
     renderSummary();
+
 
     showScreen("summary");
 
@@ -1675,6 +2319,7 @@ function renderSummary(){
 
     let questionsHTML = "";
 
+
     QUESTIONS.forEach((question, index) => {
 
         questionsHTML +=
@@ -1683,20 +2328,30 @@ function renderSummary(){
 
     });
 
+
     $("summaryQuestions").textContent =
         questionsHTML.trim();
+
+
+    $("summaryRestaurant").textContent =
+        state.restaurant || "—";
+
 
     $("summaryFood").textContent =
         state.food || "—";
 
+
     $("summaryDrink").textContent =
         state.drink || "—";
+
 
     $("summaryDessert").textContent =
         state.dessert || "—";
 
+
     $("summaryMessage").textContent =
-        state.message || "წერილი არ დაუტოვებია.";
+        state.message
+        || "წერილი არ დაუტოვებია.";
 
 }
 
@@ -1710,33 +2365,38 @@ async function submitAllData(){
     const submitBtn =
         $("submitBtn");
 
+
     const loading =
         $("loading");
+
 
     const error =
         $("submitError");
 
-    submitBtn.disabled = true;
 
-    submitBtn.style.opacity = ".6";
+    submitBtn.disabled =
+        true;
+
+
+    submitBtn.style.opacity =
+        ".6";
+
 
     loading.classList.add("show");
+
 
     error.classList.remove("show");
 
 
-    /*
-        ყველაფერი იგზავნება ერთ POST request-ში.
-        ამიტომ Formspree-ზე მიიღება მხოლოდ
-        ერთი submission.
-    */
+    const formData =
+        new FormData();
 
-    const formData = new FormData();
 
     formData.append(
         "subject",
         "პატიების საიტის პასუხები"
     );
+
 
     formData.append(
         "ფორმა",
@@ -1753,12 +2413,21 @@ async function submitAllData(){
             question.title
         );
 
+
         formData.append(
             `პასუხი ${index + 1}`,
             state.answers[index] || "—"
         );
 
     });
+
+
+    /* რესტორანი */
+
+    formData.append(
+        "რესტორანი",
+        state.restaurant || "—"
+    );
 
 
     /* არჩევანი */
@@ -1768,10 +2437,12 @@ async function submitAllData(){
         state.food || "—"
     );
 
+
     formData.append(
         "სასმელი",
         state.drink || "—"
     );
+
 
     formData.append(
         "დესერტი",
@@ -1783,7 +2454,8 @@ async function submitAllData(){
 
     formData.append(
         "მისი წერილი",
-        state.message || "წერილი არ დაუტოვებია."
+        state.message
+        || "წერილი არ დაუტოვებია."
     );
 
 
@@ -1797,11 +2469,14 @@ async function submitAllData(){
 
         "კითხვები:",
 
-        ...QUESTIONS.map((question,index) =>
-            `${index + 1}. ${question.title}\nპასუხი: ${state.answers[index] || "—"}`
+        ...QUESTIONS.map(
+            (question,index) =>
+                `${index + 1}. ${question.title}\nპასუხი: ${state.answers[index] || "—"}`
         ),
 
         "",
+
+        `📍 რესტორანი: ${state.restaurant || "—"}`,
 
         `🍽️ საჭმელი: ${state.food || "—"}`,
 
@@ -1813,7 +2488,8 @@ async function submitAllData(){
 
         "📝 მისი წერილი:",
 
-        state.message || "წერილი არ დაუტოვებია."
+        state.message
+        || "წერილი არ დაუტოვებია."
 
     ].join("\n");
 
@@ -1853,18 +2529,26 @@ async function submitAllData(){
 
         showScreen("success");
 
-        progressBar.style.width = "100%";
+
+        progressBar.style.width =
+            "100%";
 
 
     }catch(err){
 
         console.error(err);
 
+
         error.classList.add("show");
 
-        submitBtn.disabled = false;
 
-        submitBtn.style.opacity = "1";
+        submitBtn.disabled =
+            false;
+
+
+        submitBtn.style.opacity =
+            "1";
+
 
         loading.classList.remove("show");
 
@@ -1882,8 +2566,6 @@ $("submitBtn").addEventListener(
 /* =========================================================
    INITIALIZE
 ========================================================= */
-
-renderQuestion();
 
 </script>
 
