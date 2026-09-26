@@ -1851,6 +1851,7 @@ const HEART_COLORS = [
     "rgba(255,196,214,.3)"
 ];
 
+
 function createHeart(){
 
     const heart =
@@ -2358,6 +2359,7 @@ function renderSummary(){
 
 /* =========================================================
    FORMSPREE
+   EVERYTHING IS SENT AS ONE MESSAGE
 ========================================================= */
 
 async function submitAllData(){
@@ -2388,91 +2390,46 @@ async function submitAllData(){
     error.classList.remove("show");
 
 
-    const formData =
-        new FormData();
+    /*
+       ვქმნით ერთ მთლიან წერილს.
+       აქ შედის აბსოლუტურად ყველაფერი:
+       - 4 კითხვაზე პასუხი
+       - რესტორანი
+       - საჭმელი
+       - სასმელი
+       - დესერტი
+       - მისი დაწერილი ტექსტი
+    */
 
-
-    formData.append(
-        "subject",
-        "პატიების საიტის პასუხები"
-    );
-
-
-    formData.append(
-        "ფორმა",
-        "პატიების / ვახშმის მოწვევა"
-    );
-
-
-    /* კითხვები */
-
-    QUESTIONS.forEach((question, index) => {
-
-        formData.append(
-            `კითხვა ${index + 1}`,
-            question.title
-        );
-
-
-        formData.append(
-            `პასუხი ${index + 1}`,
-            state.answers[index] || "—"
-        );
-
-    });
-
-
-    /* რესტორანი */
-
-    formData.append(
-        "რესტორანი",
-        state.restaurant || "—"
-    );
-
-
-    /* არჩევანი */
-
-    formData.append(
-        "საჭმელი",
-        state.food || "—"
-    );
-
-
-    formData.append(
-        "სასმელი",
-        state.drink || "—"
-    );
-
-
-    formData.append(
-        "დესერტი",
-        state.dessert || "—"
-    );
-
-
-    /* წერილი */
-
-    formData.append(
-        "მისი წერილი",
-        state.message
-        || "წერილი არ დაუტოვებია."
-    );
-
-
-    /* ერთიანი შეჯამება */
-
-    const fullSummary = [
+    const fullMessage = [
 
         "♡ პატიების საიტის პასუხები",
 
         "",
 
-        "კითხვები:",
+        "━━━━━━━━━━━━━━━━━━━━",
 
-        ...QUESTIONS.map(
-            (question,index) =>
-                `${index + 1}. ${question.title}\nპასუხი: ${state.answers[index] || "—"}`
-        ),
+        "",
+
+        "კითხვებზე პასუხები:",
+
+        "",
+
+        ...QUESTIONS.map((question, index) => [
+
+            `${index + 1}. ${question.title}`,
+
+            `პასუხი: ${state.answers[index] || "—"}`,
+
+            ""
+
+        ].join("\n")),
+
+        "━━━━━━━━━━━━━━━━━━━━",
+
+        "",
+
+        "ვახშმის არჩევანი:",
 
         "",
 
@@ -2486,17 +2443,41 @@ async function submitAllData(){
 
         "",
 
+        "━━━━━━━━━━━━━━━━━━━━",
+
+        "",
+
         "📝 მისი წერილი:",
 
-        state.message
-        || "წერილი არ დაუტოვებია."
+        "",
+
+        state.message || "წერილი არ დაუტოვებია.",
+
+        "",
+
+        "━━━━━━━━━━━━━━━━━━━━"
 
     ].join("\n");
 
 
+    /*
+       Formspree-ზე იგზავნება მხოლოდ:
+       subject + ერთი message.
+    */
+
+    const formData =
+        new FormData();
+
+
     formData.append(
-        "სრული პასუხი",
-        fullSummary
+        "subject",
+        "პატიების საიტის პასუხები ♡"
+    );
+
+
+    formData.append(
+        "message",
+        fullMessage
     );
 
 
